@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SISTEMA FIRE | Acesso Líder</title>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --fire-primary: #ff3300;
+            --fire-secondary: #ff8800;
+            --void-bg: #050505;
+            --panel-bg: #0f0f0f;
+            --text-main: #e0e0e0;
+            --text-muted: #666;
+            --border-dim: #222;
+            --comp-color: #ff3300;
+            --casual-color: #00d9ff;
+            --font-tech: 'Rajdhani', sans-serif;
+            --font-ui: 'Inter', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            background-color: var(--void-bg);
+            background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.95));
+            color: var(--text-main);
+            font-family: var(--font-ui);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* LOGIN */
+        #login-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #000;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-box { width: 100%; max-width: 360px; text-align: center; }
+
+        .logo-area i {
+            font-size: 4rem;
+            background: linear-gradient(to bottom, #ffaa00, #ff3300);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .cyber-input {
+            width: 100%;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-dim);
+            padding: 15px;
+            color: white;
+            font-family: var(--font-tech);
+            font-size: 1.1rem;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+        .cyber-btn {
+            width: 100%;
+            background: var(--fire-primary);
+            color: #000;
+            font-weight: 700;
+            font-family: var(--font-tech);
+            text-transform: uppercase;
+            padding: 15px;
+            border: none;
+            cursor: pointer;
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+        }
+
+        /* DASHBOARD */
+        #dashboard-screen { display: none; flex-direction: column; height: 100%; }
+
+        header {
+            padding: 20px;
+            background: #0f0f0f;
+            border-bottom: 1px solid var(--border-dim);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .content-area { flex: 1; overflow-y: auto; padding: 20px; }
+
+        .control-panel {
+            background: var(--panel-bg);
+            border: 1px solid var(--border-dim);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+
+        .tag-switcher { display: flex; gap: 10px; margin-bottom: 15px; }
+
+        .tag-btn {
+            flex: 1; padding: 10px; background: #1a1a1a; border: 1px solid #333;
+            color: #666; font-family: var(--font-tech); text-transform: uppercase; cursor: pointer;
+        }
+
+        .active-casual { border-color: var(--casual-color) !important; color: var(--casual-color) !important; }
+        .active-comp { border-color: var(--fire-primary) !important; color: var(--fire-primary) !important; }
+
+        .member-card {
+            background: #121212; border-left: 3px solid #333;
+            padding: 15px; margin-bottom: 10px; border-radius: 0 4px 4px 0;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+
+        .type-casual { border-left-color: var(--casual-color); }
+        .type-competitivo { border-left-color: var(--fire-primary); }
+
+        .error-msg { color: #ff3333; font-size: 0.8rem; margin-top: 10px; display: none; font-family: var(--font-tech); }
+    </style>
+</head>
+<body>
+
+    <div id="login-screen">
+        <div class="login-box">
+            <div class="logo-area"><i class="fas fa-fire"></i></div>
+            <h1 style="font-family: var(--font-tech);">SISTEMA FIRE</h1>
+            <p style="color: #666; font-size: 0.8rem; margin-bottom: 30px;">ACESSO EXCLUSIVO LIDERANÇA</p>
+
+            <form id="loginForm">
+                <input type="text" class="cyber-input" id="adminUser" placeholder="USUÁRIO" required>
+                <input type="password" class="cyber-input" id="adminPass" placeholder="SENHA" required>
+                <button type="submit" class="cyber-btn">Entrar no Painel</button>
+            </form>
+            <div id="loginError" class="error-msg">DADOS INCORRETOS! TENTE NOVAMENTE.</div>
+        </div>
+    </div>
+
+    <div id="dashboard-screen">
+        <header>
+            <div>
+                <h2 style="font-family: var(--font-tech);">PAINEL FIRE</h2>
+                <span style="font-size: 0.7rem; color: var(--fire-primary);">MODO COMANDANTE</span>
+            </div>
+            <button onclick="location.reload()" style="background:none; border:1px solid #333; color:#666; padding:5px 10px; border-radius:4px;">SAIR</button>
+        </header>
+
+        <div class="content-area">
+            <div class="control-panel">
+                <div class="tag-switcher">
+                    <button class="tag-btn active-casual" id="btn-casual" onclick="setMode('casual')">CASUAL</button>
+                    <button class="tag-btn" id="btn-comp" onclick="setMode('competitivo')">ELITE</button>
+                </div>
+                <input type="text" id="newNick" class="cyber-input" placeholder="Nickname do Jogador">
+                <input type="text" id="newDiscord" class="cyber-input" placeholder="Discord">
+                <button onclick="addMember()" class="cyber-btn" style="background: #fff; color: #000;">Cadastrar Membro</button>
+            </div>
+
+            <h3 style="font-family: var(--font-tech); margin-bottom: 15px;">MEMBROS CADASTRADOS (<span id="count">0</span>)</h3>
+            <div id="membersList"></div>
+        </div>
+    </div>
+
+    <script>
+        let currentMode = 'casual';
+        const STORAGE_KEY = 'fire_guild_data';
+        let members = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+
+        // LOGIN SIMPLES
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const u = document.getElementById('adminUser').value;
+            const p = document.getElementById('adminPass').value;
+
+            // Altere aqui se quiser outro usuário/senha
+            if(u === "admin" && p === "fire123") {
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('dashboard-screen').style.display = 'flex';
+                render();
+            } else {
+                document.getElementById('loginError').style.display = 'block';
+            }
+        });
+
+        function setMode(m) {
+            currentMode = m;
+            document.getElementById('btn-casual').className = m === 'casual' ? 'tag-btn active-casual' : 'tag-btn';
+            document.getElementById('btn-comp').className = m === 'competitivo' ? 'tag-btn active-comp' : 'tag-btn';
+        }
+
+        function addMember() {
+            const nick = document.getElementById('newNick').value;
+            const disc = document.getElementById('newDiscord').value;
+            
+            if(!nick || !disc) return alert("Preencha tudo!");
+
+            members.unshift({
+                id: Date.now(),
+                nick: nick,
+                discord: disc,
+                type: currentMode
+            });
+
+            save();
+            document.getElementById('newNick').value = '';
+            document.getElementById('newDiscord').value = '';
+        }
+
+        function removeMember(id) {
+            if(confirm("Remover membro?")) {
+                members = members.filter(m => m.id !== id);
+                save();
+            }
+        }
+
+        function save() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(members));
+            render();
+        }
+
+        function render() {
+            const container = document.getElementById('membersList');
+            document.getElementById('count').innerText = members.length;
+            container.innerHTML = '';
+
+            members.forEach(m => {
+                container.innerHTML += `
+                    <div class="member-card type-${m.type}">
+                        <div>
+                            <strong>${m.nick}</strong><br>
+                            <small style="color:#666">${m.discord}</small>
+                        </div>
+                        <button onclick="removeMember(${m.id})" style="background:none; border:none; color:#444"><i class="fas fa-trash"></i></button>
+                    </div>
+                `;
+            });
+        }
+    </script>
+</body>
+</html>
